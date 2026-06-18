@@ -389,7 +389,7 @@ document.addEventListener("DOMContentLoaded", () => {
             new Date().getFullYear();
 
         footerText.innerHTML =
-            `© ${year} Aurelia Hart. All Rights Reserved.`;
+            `© ${year} Arati Bhandari. All Rights Reserved.`;
     }
 
 });
