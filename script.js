@@ -202,37 +202,69 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    /* ==========================================
-       CONTACT FORM SUCCESS MESSAGE
-    ========================================== */
+  /* ==========================================
+   CONTACT FORM - FORMSPREE
+========================================== */
 
-    const contactForm =
-        document.getElementById("contactForm");
+const contactForm =
+    document.getElementById("contactForm");
 
-    const successMessage =
-        document.getElementById("successMessage");
+const successMessage =
+    document.getElementById("successMessage");
 
-    contactForm.addEventListener(
-        "submit",
-        function (e) {
+contactForm.addEventListener(
+    "submit",
+    async function (e) {
 
-            e.preventDefault();
+        e.preventDefault();
+
+        try {
+
+            const response = await fetch(
+                contactForm.action,
+                {
+                    method: "POST",
+                    body: new FormData(contactForm),
+                    headers: {
+                        Accept: "application/json"
+                    }
+                }
+            );
+
+            if (response.ok) {
+
+                successMessage.textContent =
+                    "Message sent successfully ✨";
+
+                successMessage.classList.add("show");
+
+                contactForm.reset();
+
+                setTimeout(() => {
+
+                    successMessage.classList.remove(
+                        "show"
+                    );
+
+                }, 4000);
+
+            } else {
+
+                successMessage.textContent =
+                    "Something went wrong. Please try again.";
+
+                successMessage.classList.add("show");
+            }
+
+        } catch (error) {
+
+            successMessage.textContent =
+                "Network error. Please try again later.";
 
             successMessage.classList.add("show");
-
-            contactForm.reset();
-
-            setTimeout(() => {
-
-                successMessage.classList.remove(
-                    "show"
-                );
-
-            }, 4000);
         }
-    );
-
-
+    }
+);
     /* ==========================================
        HERO FADE-IN ANIMATION
     ========================================== */
